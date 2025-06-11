@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
+<body>
+    <div class="main-container">
+        <th:block th:insert="common/layout :: header"></th:block>
+        
+        <main class="page-content">
+            <div class="button-wrapper">
+                <button class="btn">회원 검색</button>
+                <button class="btn">전체 회원 조회</button>
+                <button class="btn">새 회원 등록</button>
+                <button class="btn">회원 정보 수정</button>
+                <button class="btn">회원 삭제</button>
+            </div>
+        </main>
+        
+        <th:block th:insert="common/layout :: footer"></th:block>
+    </div>
+    
+</body>
+</html>
