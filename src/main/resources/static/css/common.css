@@ -44,8 +44,11 @@ body {
 }
 
 .page-content {
+    display: flex;
     flex: 1;
     padding: 20px 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .page-footer {
