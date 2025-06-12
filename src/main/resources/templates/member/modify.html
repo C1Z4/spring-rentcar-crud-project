@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
+<body>
+    <div class="main-container">
+        <th:block th:insert="common/layout :: header"></th:block>
+
+        <main class="page-content">
+            <form action="/member/modify" method="post">
+                <input type="hidden" name="memberCode" id="memberCode"/>
+                <label>수정할 이름</label>
+                <input type="text" placeholder="김철수" name="memberName" id="memberName"/><br>
+                <label>수정할 연락처</label>
+                <input type="text" placeholder="010-1234-5678" name="phone" id="phone"/><br>
+                <label>수정할 등급</label>
+                <select name="level.level" id="level"></select><br>
+                <button class="btn" type="submit">수정</button>
+            </form>
+
+            <table align="center" border="1">
+                <tr>
+                    <th>회원번호</th>
+                    <th>이름</th>
+                    <th>연락처</th>
+                    <th>등급</th>
+                    <th>할인율</th>
+                </tr>
+                <tr th:each="member : ${ memberList }">
+                    <td>
+                        <button type="button" class="member-select-btn" 
+                                th:data-code="${member.memberCode}"
+                                th:data-name="${member.memberName}"
+                                th:data-phone="${member.phone}"
+                                th:data-level="${member.level.level}"
+                                style="background: none; border: none; color: blue; cursor: pointer; text-decoration: underline;">
+                            <span th:text="${member.memberCode}"></span>
+                        </button>
+                    </td>
+                    <td th:text="${ member.memberName }"></td>
+                    <td th:text="${ member.phone }"></td>
+                    <td th:text="${ member.level.level }"></td>
+                    <td th:text="${ member.level.discountRate }"></td>
+                </tr>
+            </table>
+        </main>
+
+        <script>
+            fetch("/member/level")
+                .then(res => res.json())
+                .then(data => {
+                    const $level = document.getElementById("level");
+
+                    for(let index in data) {
+                        const $option = document.createElement('option');
+                        $option.value = data[index].level;
+                        $option.textContent = data[index].level;
+                        $level.appendChild($option);
+                    }
+
+                    setupMemberSelectEvents();
+                });
+
+            function setupMemberSelectEvents() {
+                // 모든 회원 선택 버튼에 클릭 이벤트 추가
+                document.querySelectorAll('.member-select-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const memberCode = this.getAttribute('data-code');
+                        const memberName = this.getAttribute('data-name');
+                        const phone = this.getAttribute('data-phone');
+                        const level = this.getAttribute('data-level');
+
+                        document.getElementById('memberCode').value = memberCode;
+                        document.getElementById('memberName').value = memberName;
+                        document.getElementById('phone').value = phone;
+
+                        const levelSelect = document.getElementById('level');
+
+                        for(let i = 0; i < levelSelect.options.length; i++) {
+                            if(levelSelect.options[i].text === level) {
+                                levelSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                        // 선택한 번호만 bold
+                        document.querySelectorAll('.member-select-btn').forEach(btn => {
+                            btn.style.fontWeight = '';
+                        });
+                        this.style.fontWeight = 'bold';
+                    });
+                });
+            }
+        </script>
+
+        <th:block th:insert="common/layout :: footer"></th:block>
+    </div>
+</body>
+</html>
