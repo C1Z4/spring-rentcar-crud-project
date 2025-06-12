@@ -54,6 +54,20 @@
         </where>
     </select>
 
+    <!-- 회원 등록 -->
+    <insert id="registerMember" parameterType="com.c1z4.rentcar.member.model.dto.MemberDTO">
+        INSERT INTO TBL_MEMBER
+        (
+        MEMBER_NAME,
+        PHONE
+        )
+        VALUES
+        (
+        #{ memberName },
+        #{ phone }
+        )
+    </insert>
+
 
 
 </mapper>

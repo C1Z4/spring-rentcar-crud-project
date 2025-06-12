@@ -13,4 +13,5 @@ public interface MemberMapper {
 
     List<MemberDTO> searchMemberWithLevel(SearchCriteria searchCriteria);
 
+    void registerMember(MemberDTO newMember);
 }

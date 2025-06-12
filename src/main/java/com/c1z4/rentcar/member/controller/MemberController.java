@@ -21,7 +21,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    // 회원 홈
+    // 회원 홈 페이지
     @GetMapping("")
     public String memberHome() {
         return "member/home";
@@ -38,6 +38,7 @@ public class MemberController {
         return "member/all-member-list";
     }
 
+    // 특정 회원 조회(검색) 페이지
     @GetMapping("/search")
     public void searchPage() {
     }
@@ -52,5 +53,24 @@ public class MemberController {
 
         return "member/search";
     }
+
+    // 회원 등록 페이지
+    @GetMapping("/register")
+    public void registerPage(Model model) {
+        List<MemberDTO> memberList = memberService.getAllMemberList();
+
+        model.addAttribute("memberList", memberList);
+    }
+    
+    // 회원 등록
+    @PostMapping("/register")
+    public String registerMember(MemberDTO newMember) {
+
+        memberService.registerMember(newMember);
+        
+        return "redirect:/member/register";
+    }
+
+
 
 }

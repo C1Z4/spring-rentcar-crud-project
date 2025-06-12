@@ -23,4 +23,8 @@ public class MemberService {
     public List<MemberDTO> searchMemberWithLevel(SearchCriteria searchCriteria) {
         return memberMapper.searchMemberWithLevel(searchCriteria);
     }
+
+    public void registerMember(MemberDTO newMember) {
+        memberMapper.registerMember(newMember);
+    }
 }
