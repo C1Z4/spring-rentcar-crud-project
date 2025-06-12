@@ -27,25 +27,19 @@ body {
     font-size: 1.2em;
 }
 
-.breadcrumb {
-    font-size: 1.1em;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-}
-
-.home-link {
-    color: #3498db;
+.back-link {
+    color: #2c3e50;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.home-link:hover {
-    color: #2980b9;
-}
-
 .page-content {
+    display: flex;
     flex: 1;
     padding: 20px 0;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .page-footer {
