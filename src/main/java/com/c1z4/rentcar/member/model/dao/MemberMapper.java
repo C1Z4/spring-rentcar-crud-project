@@ -19,4 +19,6 @@ public interface MemberMapper {
     void modifyMember(MemberDTO modifiedMember);
 
     List<LevelDTO> getAllLevel();
+
+    void deleteMember(int memberCode);
 }

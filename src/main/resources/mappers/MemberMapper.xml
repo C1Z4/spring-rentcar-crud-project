@@ -85,13 +85,17 @@
            WHERE MEMBER_CODE = #{ memberCode }
     </update>
 
+    <!-- 회원 삭제 -->
+    <delete id="deleteMember" parameterType="_int">
+        DELETE FROM TBL_MEMBER
+              WHERE MEMBER_CODE = #{ memberCode }
+    </delete>
+
     <!-- 등급 전체 조회 -->
     <select id="getAllLevel" resultMap="levelResultMap">
           SELECT LEVEL
             FROM TBL_LEVEL
         ORDER BY DISCOUNT_RATE
     </select>
-
-
 
 </mapper>

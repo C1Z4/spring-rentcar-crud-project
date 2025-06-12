@@ -36,4 +36,8 @@ public class MemberService {
     public List<LevelDTO> getAllLevel() {
         return memberMapper.getAllLevel();
     }
+
+    public void deleteMember(int memberCode) {
+        memberMapper.deleteMember(memberCode);
+    }
 }

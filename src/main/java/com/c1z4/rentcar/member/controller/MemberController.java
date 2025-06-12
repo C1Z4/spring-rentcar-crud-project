@@ -91,6 +91,22 @@ public class MemberController {
         return "redirect:/member/modify";
     }
 
+    // 회원 삭제 페이지
+    @GetMapping("/delete")
+    public void deletePage(Model model) {
+        List<MemberDTO> memberList = memberService.getAllMemberList();
+
+        model.addAttribute("memberList", memberList);
+    }
+
+    // 회원 삭제
+    @PostMapping("/delete")
+    public String deleteMember(int memberCode) {
+        memberService.deleteMember(memberCode);
+
+        return "redirect:/member/delete";
+    }
+
     // 등급 조회
     @GetMapping(value = "/level", produces = "application/json; charset=UTF-8")
     @ResponseBody
