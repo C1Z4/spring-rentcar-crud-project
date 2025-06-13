@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c1z4.rentcar.rent.model.dao.RentMapper">
+
+    <!--RentHistoryDTO를 위한 resultMap-->
+    <resultMap id="rentHistoryResultMap" type="com.c1z4.rentcar.rent.model.dto.RentHistoryDTO">
+        <result property="rentDate" column="RENT_DATE"/>
+        <result property="returnDate" column="RETURN_DATE"/>
+        <result property="rentTime" column="RENT_TIME"/>
+        <result property="delayStatus" column="DELAY_STATUS"/>
+        <association property="carCode" column="CAR_CODE" resultMap="carResultMap"/>
+        <association property="memberCode" column="MEMBER_CODE" resultMap="memberResultMap"/>
+    </resultMap>
+
+    <!--MemberDTO를 위한 resultMap-->
+    <resultMap id="memberResultMap" type="com.c1z4.rentcar.rent.model.dto.MemberDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="phone" column="PHONE"/>
+        <result property="level" column="LEVEL"/>
+    </resultMap>
+
+    <!--CarDTO를 위한 resultMap-->
+    <resultMap id="carResultMap" type="com.c1z4.rentcar.rent.model.dto.CarDTO">
+        <id property="carCode" column="CAR_CODE"/>
+        <result property="carNum" column="CAR_NUMBER"/>
+        <result property="carPrice" column="RENT_PRICE"/>
+        <result property="rentLocation" column="RENT_LOCATION"/>
+        <result property="rentStatus" column="RENT_STATUS"/>
+        <result property="modelCode" column="MODEL_CODE"/>
+    </resultMap>
+
+    <select id="findRentHistory" resultMap="rentHistoryResultMap">
+        SELECT
+            R.RENT_DATE,
+            R.RETURN_DATE,
+            R.RENT_TIME,
+            R.DELAY_STATUS,
+            C.CAR_CODE,
+            C.CAR_NUMBER,
+            C.RENT_PRICE,
+            C.RENT_LOCATION,
+            C.RENT_STATUS ,
+            C.MODEL_CODE,
+            M.MEMBER_CODE, M.MEMBER_NAME, M.PHONE, M.LEVEL
+        FROM
+            TBL_RENT R
+        JOIN
+            TBL_CAR C ON R.CAR_CODE = C.CAR_CODE
+        JOIN
+            TBL_MEMBER M ON R.MEMBER_CODE = M.MEMBER_CODE
+    </select>
+
+    <!--회원 전체 조회-->
+    <select id="findMemberList" resultMap="memberResultMap">
+        SELECT
+            MEMBER_CODE,
+            MEMBER_NAME,
+            PHONE,
+            LEVEL
+        FROM
+            TBL_MEMBER
+    </select>
+
+    <!--차량 전체 조회-->
+    <select id="findCarList" resultMap="carResultMap">
+        SELECT
+            *
+        FROM
+            TBL_CAR
+        ORDER BY
+            RENT_STATUS DESC
+    </select>
+
+    <insert id="rentCar" parameterType="com.c1z4.rentcar.rent.model.dto.RentHistoryDTO">
+        INSERT INTO TBL_RENT
+        (
+            RENT_DATE,
+            RENT_TIME,
+            DELAY_STATUS,
+            MEMBER_CODE,
+            CAR_CODE
+        )
+        VALUES
+        (
+            SYSDATE,
+            CURRENT_TIMESTAMP,
+            'N',
+            ?,
+
+        )
+    </insert>
+
+    <update id="returnCar" parameterType="_int">
+        UPDATE TBL_RENT
+        SET
+            RETURN_DATE = NOW()
+        WHERE
+            MEMBER_CODE = #{ memberCode } AND
+            CAR_CODE = #{ carCode }
+    </update>
+</mapper>

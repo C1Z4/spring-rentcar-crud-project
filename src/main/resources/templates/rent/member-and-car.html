@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 및 차량 조회</title>
+</head>
+<body>
+<div th:fragment="memberAndCarList">
+    <div class="container">
+        <div>
+            <h2>[회원 목록]</h2>
+            <table>
+                <tr>
+                    <th>회원 번호</th>
+                    <th>회원 이름</th>
+                    <th>전화 번호</th>
+                    <th>회원 등급</th>
+                </tr>
+                <tr th:each="member : ${ memberList }">
+                    <td th:text="${ member.memberCode }"></td>
+                    <td th:text="${ member.memberName }"></td>
+                    <td th:text="${ member.phone }"></td>
+                    <td th:text="${ member.level }"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <h2>[차 목록]</h2>
+            <table>
+                <tr>
+                    <th>차량 코드</th>
+                    <th>차량 번호</th>
+                    <th>대여 가격</th>
+                    <th>대여 위치</th>
+                    <th>대여 가능 여부</th>
+                    <th>세부 차량 코드</th>
+                </tr>
+                <tr th:each="car : ${ carList }">
+                    <td th:text="${ car.carCode }"></td>
+                    <td th:text="${ car.carNum }"></td>
+                    <td th:text="${ car.carPrice }"></td>
+                    <td th:text="${ car.rentLocation }"></td>
+                    <td th:text="${ car.rentStatus ? '가능' : '불가능' }"></td>
+                    <td th:text="${ car.modelCode }"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
