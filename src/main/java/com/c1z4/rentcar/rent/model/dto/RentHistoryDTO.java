@@ -1,10 +1,13 @@
 package com.c1z4.rentcar.rent.model.dto;
 
-import java.sql.Date;
+
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 public class RentHistoryDTO {
-    private Date rentDate;
-    private Date returnDate;
+
+    private LocalDateTime rentDate;
+    private LocalDateTime returnDate;
     private int rentTime;
     private boolean delayStatus;
     private CarDTO carCode;
@@ -12,7 +15,7 @@ public class RentHistoryDTO {
 
     public RentHistoryDTO() {}
 
-    public RentHistoryDTO(Date rentDate, Date returnDate, int rentTime, boolean delayStatus, CarDTO carCode, MemberDTO memberCode) {
+    public RentHistoryDTO(LocalDateTime rentDate, LocalDateTime returnDate, int rentTime, boolean delayStatus, CarDTO carCode, MemberDTO memberCode) {
         this.rentDate = rentDate;
         this.returnDate = returnDate;
         this.rentTime = rentTime;
@@ -21,19 +24,19 @@ public class RentHistoryDTO {
         this.memberCode = memberCode;
     }
 
-    public Date getRentDate() {
+    public LocalDateTime getRentDate() {
         return rentDate;
     }
 
-    public void setRentDate(Date rentDate) {
+    public void setRentDate(LocalDateTime rentDate) {
         this.rentDate = rentDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDateTime getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }
 
