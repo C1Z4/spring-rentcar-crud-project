@@ -1,46 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>대여하기</title>
-    <style>
-        .container {
-            display: flex;
-            justify-content: center;
-            gap: 20px; /* 표 사이 간격 */
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 300px;
-        }
-
-        th, td {
-            border: 1px solid #333;
-            padding: 8px;
-            text-align: center;
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-    </style>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
 <body>
-    <h1>대여하기</h1>
-    <form action="/rent/rent" method="post">
-        <label>회원 번호를 입력해주세요:</label>
-        <input type="number" name="memberCode" placeholder="예: 1"><br><br>
+<div class="main-container" style="width: ">
+    <th:block th:insert="common/layout :: header"></th:block>
 
-        <label>대여할 차량 번호를 입력해주세요:</label>
-        <input type="number" name="carCode" placeholder="예: 1"><br><br>
+    <main class="page-content" style="flex-direction: column">
+        <h1>대여하기</h1>
+        <form action="/rent/rent" method="post">
+            <label>회원 번호를 입력해주세요:</label>
+            <input type="number" name="memberCode" placeholder="예: 1"><br><br>
 
-        <label>대여 예정 시간을 입력해주세요:</label>
-        <input type="number" name="rentTime" placeholder="예: 8"><br><br>
+            <label>대여할 차량 번호를 입력해주세요:</label>
+            <input type="number" name="carCode" placeholder="예: 1"><br><br>
 
-        <input type="submit" value="대여 신청">
-    </form>
-    <div th:replace="rent/member-and-car :: memberAndCarList"></div><br><br>
+            <label>대여 예정 시간을 입력해주세요:</label>
+            <input type="number" name="rentTime" placeholder="예: 8"><br><br>
+
+            <button class="btn" type="submit" value="대여 신청">대여 신청</button>
+        </form>
+        <div th:replace="rent/member-and-car :: memberAndCarList"></div><br><br>
+    </main>
+
+    <th:block th:insert="common/layout :: footer"></th:block>
+</div>
 </body>
 </html>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* 표 사이 간격 */
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 300px;
+    }
+
+    th, td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: center;
+    }
+
+    h1, h2 {
+        text-align: center;
+    }
+</style>

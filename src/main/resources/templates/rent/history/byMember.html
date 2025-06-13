@@ -1,44 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>회원이름 별 대여 이력 조회</title>
-  <style>
-    body {
-      background: steelblue;
-      color: darkblue;
-    }
-
-    h2 {
-      text-align: center;
-      color: darkblue;
-    }
-
-    label {
-      font-size: 16px;
-      font-weight: 500;
-      display: block;
-    }
-
-    input {
-      width: 10%;
-      border: 1px solid lightpink;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-
-    button {
-      background: lightskyblue;
-      font-size: 15px;
-      cursor: pointer;
-    }
-  </style>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
 <body>
-<form action="/rent/history/result" method="get">
-  <label>회원 이름:</label>
-  <input type="text" name="memberName" required>
-  <button type="submit">조회</button>
-</form>
+<div class="main-container">
+  <th:block th:insert="common/layout :: header"></th:block>
+
+  <main class="page-content" style="flex-direction: column">
+    <form action="/rent/history/result" method="get">
+      <label>회원 이름:</label>
+      <input type="text" name="memberName" required>
+      <button type="submit">조회</button>
+    </form>
+
+  </main>
+
+  <th:block th:insert="common/layout :: footer"></th:block>
+</div>
 </body>
 </html>

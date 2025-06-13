@@ -1,46 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
 <body>
+<div class="main-container">
+    <th:block th:insert="common/layout :: header"></th:block>
 
-<h2>차량 상세 정보 조회</h2>
+    <main class="page-content" style="flex-direction: column">
+        <h2>차량 상세 정보 조회</h2>
 
-<!--<form action="/car/select" method="get">-->
-<!--    <label for="carCodeInput">차량 코드 입력:</label>-->
-<!--    <input type="number" id="carCodeInput" name="carCode" required>-->
-<!--    <button type="submit">조회</button>-->
-<!--</form>-->
+        <div th:if="${car}">
+            <h3>조회된 차량 정보</h3>
+            <p>차량코드: <span th:text="${car.carCode}"></span></p>
+            <p>차량번호: <span th:text="${car.carNumber}"></span></p>
+            <p>대여가격: <span th:text="${car.rentPrice}"></span></p>
+            <p>대여위치: <span th:text="${car.rentLocation}"></span></p>
+            <p>대여가능: <span th:text="${car.rentStatus} ? '가능' : '불가능'"></span></p>
+            <p>모델코드: <span th:text="${car.modelCode}"></span></p>
+            <p>좋아요 수: <span th:text="${likeCount}"></span></p>
 
-<div th:if="${car}">
-    <h3>조회된 차량 정보</h3>
-    <p>차량코드: <span th:text="${car.carCode}"></span></p>
-    <p>차량번호: <span th:text="${car.carNumber}"></span></p>
-    <p>대여가격: <span th:text="${car.rentPrice}"></span></p>
-    <p>대여위치: <span th:text="${car.rentLocation}"></span></p>
-    <p>대여가능: <span th:text="${car.rentStatus} ? '가능' : '불가능'"></span></p>
-    <p>모델코드: <span th:text="${car.modelCode}"></span></p>
-    <p>좋아요 수: <span th:text="${likeCount}"></span></p>
+            <br>
+            <a th:href="@{'/car/modify/' + ${car.carCode}}">
+                <button type="submit">수정</button></a>
 
-    <br>
-    <a th:href="@{'/car/modify/' + ${car.carCode}}">
-        <button type="submit">수정</button></a>
+            <br>
+            <form th:action="@{'/car/delete/' + ${car.carCode}}" method="post">
+                <button type="submit">삭제</button>
+            </form>
 
-    <br>
-    <form th:action="@{'/car/delete/' + ${car.carCode}}" method="post">
-        <button type="submit">삭제</button>
-    </form>
+        </div>
+        <div th:unless="${car}">
+            <p>차량 코드를 입력하고 조회 버튼을 눌러주세요.</p>
+            <p th:if="${param.carCode}">해당 차량 코드를 가진 차량이 없습니다.</p>
+        </div>
 
+        <br>
+        <a th:href="@{/car/list}">목록으로</a>
+    </main>
+
+    <th:block th:insert="common/layout :: footer"></th:block>
 </div>
-<div th:unless="${car}">
-    <p>차량 코드를 입력하고 조회 버튼을 눌러주세요.</p>
-    <p th:if="${param.carCode}">해당 차량 코드를 가진 차량이 없습니다.</p>
-</div>
-
-<br>
-<a th:href="@{/car/list}">목록으로</a>
-
 </body>
 </html>

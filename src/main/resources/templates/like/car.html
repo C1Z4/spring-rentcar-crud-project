@@ -5,9 +5,10 @@
 <div class="main-container">
     <th:block th:insert="common/layout :: header"></th:block>
 
-    <main class="page-content" style="flex-direction: column">
-        <button onclick="location.href='/rent/history/byMember'">회원별 대여이력 조회하기</button>
-        <button onclick="location.href='/rent/history/byCar'">차량별 대여이력 조회하기</button>
+    <main class="page-content">
+        <form action="search2" method="post">
+            차량코드로 조회하기: <input type="number" name="code"> <input type="submit" value="조회">
+        </form>
     </main>
 
     <th:block th:insert="common/layout :: footer"></th:block>

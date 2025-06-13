@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>차량별 대여 이력 조회</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
 <body>
-<form action="/rent/history/carResult" method="get">
-  <label>차량 코드:</label>
-  <input type="text" name="carCode" required>
-  <button type="submit">조회</button>
-</form>
+<div class="main-container">
+    <th:block th:insert="common/layout :: header"></th:block>
+
+    <main class="page-content" style="flex-direction: column">
+        <form action="/rent/history/carResult" method="get">
+            <label>차량 코드:</label>
+            <input type="text" name="carCode" required>
+            <button type="submit">조회</button>
+        </form>
+    </main>
+
+    <th:block th:insert="common/layout :: footer"></th:block>
+</div>
 </body>
 </html>

@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>대여 이력 관리 페이지</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
 <body>
-  <button onclick="location.href='/rent/history'">대여 이력</button>
-  <button onclick="location.href='/rent/rent'">대여하기</button>
-  <button onclick="location.href='/rent/member/history'">대여 이력 관리</button>
-  <button onclick="location.href='/rent/car/history'">회원별 좋아요</button>
+<div class="main-container">
+    <th:block th:insert="common/layout :: header"></th:block>
+
+    <main class="page-content" style="flex-direction: column">
+        <div class="button-wrapper">
+            <button class="btn" onclick="location.href='/rent/history'">대여 이력</button>
+            <button class="btn" onclick="location.href='/rent/rent'">대여하기</button>
+            <button class="btn" onclick="location.href='/rent/history/byMember'">회원별 대여이력 조회하기</button>
+            <button class="btn" onclick="location.href='/rent/history/byCar'">차량별 대여이력 조회하기</button>
+        </div>
+    </main>
+
+    <th:block th:insert="common/layout :: footer"></th:block>
+</div>
 </body>
 </html>

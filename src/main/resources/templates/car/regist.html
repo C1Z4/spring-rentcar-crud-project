@@ -1,36 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
 <body>
+<div class="main-container">
+    <th:block th:insert="common/layout :: header"></th:block>
 
-<h3> 차량 등록 </h3>
+    <main class="page-content" style="flex-direction: column">
+        <h3> 차량 등록 </h3>
 
-<form action="/car/register" method="post"> <label for="carNumber">차량 넘버:</label>
-    <input type="text" id="carNumber" name="carNumber" required><br><br>
+        <form action="/car/register" method="post"> <label for="carNumber">차량 넘버:</label>
+            <input type="text" id="carNumber" name="carNumber" required><br><br>
 
-    <label for="rentPrice">렌트 가격:</label>
-    <input type="number" id="rentPrice" name="rentPrice" required><br><br>
+            <label for="rentPrice">렌트 가격:</label>
+            <input type="number" id="rentPrice" name="rentPrice" required><br><br>
 
-    <label for="rentLocation">렌트 장소:</label>
-    <input type="text" id="rentLocation" name="rentLocation" required><br><br>
+            <label for="rentLocation">렌트 장소:</label>
+            <input type="text" id="rentLocation" name="rentLocation" required><br><br>
 
-    <label for="rentStatus">렌트 가능 여부:</label>
-    <input type="radio" id="rentStatus" name="rentStatus" value="true" checked>
-    <label for="rentStatus">가능</label>
-    <input type="radio" id="rentStatus1" name="rentStatus" value="false">
-    <label for="rentStatus1">불가능</label><br><br>
+            <label for="rentStatus">렌트 가능 여부:</label>
+            <input type="radio" id="rentStatus" name="rentStatus" value="true" checked>
+            <label for="rentStatus">가능</label>
+            <input type="radio" id="rentStatus1" name="rentStatus" value="false">
+            <label for="rentStatus1">불가능</label><br><br>
 
-    <label for="modelCode">차량 모델 코드:</label>
-    <input type="number" id="modelCode" name="modelCode" required><br><br>
+            <label for="modelCode">차량 모델 코드:</label>
+            <input type="number" id="modelCode" name="modelCode" required><br><br>
 
-    <button type="submit">등록</button>
-</form>
+            <button type="submit">등록</button>
+        </form>
 
-<br>
-<a th:href="@{/car/list}">목록으로</a>
+        <br>
+        <a th:href="@{/car/list}">목록으로</a>
 
+    </main>
+
+    <th:block th:insert="common/layout :: footer"></th:block>
+</div>
 </body>
 </html>
