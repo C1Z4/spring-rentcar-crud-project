@@ -19,6 +19,10 @@ public class MainRentController {
     private RentHistoryService rentHistoryService;
 
 
+    @GetMapping("/history/home")
+    public void home() {
+    }
+
     @GetMapping("/history/byMember")
     public String byMember() {
         return "rent/history/byMember";
