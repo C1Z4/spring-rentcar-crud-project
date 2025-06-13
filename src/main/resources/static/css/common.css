@@ -27,7 +27,7 @@ body {
     font-size: 1.2em;
 }
 
-.back-link {
+.main-link, .back-link {
     color: #2c3e50;
     text-decoration: none;
     transition: color 0.3s ease;

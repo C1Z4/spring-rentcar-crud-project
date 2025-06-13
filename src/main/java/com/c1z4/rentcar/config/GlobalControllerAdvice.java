@@ -16,6 +16,9 @@ public class GlobalControllerAdvice {
         PAGE_INFO_MAP.put("/member", new PageInfo("회원 관리"));
         PAGE_INFO_MAP.put("/member/all-member-list", new PageInfo("전체 회원 조회"));
         PAGE_INFO_MAP.put("/member/search", new PageInfo("회원 검색"));
+        PAGE_INFO_MAP.put("/member/register", new PageInfo("회원 등록"));
+        PAGE_INFO_MAP.put("/member/modify", new PageInfo("회원 정보 수정"));
+        PAGE_INFO_MAP.put("/member/delete", new PageInfo("회원 삭제"));
         PAGE_INFO_MAP.put("/car", new PageInfo("차량 관리"));
         PAGE_INFO_MAP.put("/rent", new PageInfo("대여 이력 관리"));
         PAGE_INFO_MAP.put("/like", new PageInfo("회원별 좋아요"));

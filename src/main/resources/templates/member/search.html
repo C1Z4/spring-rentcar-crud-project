@@ -18,22 +18,7 @@
             </form>
 
             <th:block th:if="${memberList != null and not #lists.isEmpty(memberList)}">
-                <table align="center" border="1">
-                    <tr>
-                        <th>회원번호</th>
-                        <th>이름</th>
-                        <th>연락처</th>
-                        <th>등급</th>
-                        <th>할인율</th>
-                    </tr>
-                    <tr th:each="member : ${ memberList }">
-                        <td th:text="${ member.memberCode }"></td>
-                        <td th:text="${ member.memberName }"></td>
-                        <td th:text="${ member.phone }"></td>
-                        <td th:text="${ member.level.level }"></td>
-                        <td th:text="${ member.level.discountRate }"></td>
-                    </tr>
-                </table>
+                <th:block th:insert="member/all-member-list :: memberTable"></th:block>
             </th:block>
 
             <th:block th:if="${memberList != null and #lists.isEmpty(memberList)}">
