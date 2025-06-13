@@ -7,4 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
+    @GetMapping("/rent")
+    public String rentPage() {
+        return "rent/main";
+    }
+
 }
