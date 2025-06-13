@@ -2,12 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Rentcar-System</title>
+    <link href="/css/index.styled.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <button onclick="location.href='/member'">회원 관리</button>
-    <button onclick="location.href='/car'">차량 관리</button>
-    <button onclick="location.href='/rent/history/home'">대여 이력 관리</button>
-    <button onclick="location.href='/like'">회원별 좋아요</button>
+<div class="main-container">
+    <header>
+        <h1 class="main-title">
+            <span class="main-car-emoji">🚗</span>
+            차량 대여 시스템
+        </h1>
+    </header>
+    <p class="subtitle">렌터카 관리 솔루션</p>
+
+    <div class="button-grid">
+        <button class="nav-button member" onclick="location.href='/member'">
+            <span class="icon">👥</span>
+            회원 관리
+        </button>
+
+        <button class="nav-button car" onclick="location.href='/car'">
+            <span class="icon">🚙</span>
+            차량 관리
+        </button>
+
+        <button class="nav-button rent" onclick="location.href='/rent'">
+            <span class="icon">📋</span>
+            대여 이력 관리
+        </button>
+
+        <button class="nav-button like" onclick="location.href='/like/menu'">
+            <span class="icon">❤️</span>
+            회원별 좋아요
+        </button>
+    </div>
+
+    <footer class="main-footer">
+        <p>© 2025 Rentcar System. All rights reserved.</p>
+    </footer>
+</div>
 </body>
 </html>

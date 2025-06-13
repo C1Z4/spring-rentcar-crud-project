@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1z4.rentcar.member.model.dao.MemberMapper">
+    <!-- LEVEL ResultMap -->
+    <resultMap id="levelResultMap" type="com.c1z4.rentcar.member.model.dto.LevelDTO">
+        <result property="level" column="LEVEL"/>
+        <result property="discountRate" column="DISCOUNT_RATE" />
+    </resultMap>
+
+    <!-- MEMBER ResultMap -->
+    <resultMap id="memberWithLevelResultMap" type="com.c1z4.rentcar.member.model.dto.MemberDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="phone" column="PHONE"/>
+        <association property="level" resultMap="levelResultMap" />
+    </resultMap>
+
+    <!-- 전체 회원 조회 -->
+    <select id="getAllMemberWithLevel" resultMap="memberWithLevelResultMap">
+          SELECT M.MEMBER_CODE
+                ,M.MEMBER_NAME
+                ,M.PHONE
+                ,L.LEVEL
+                ,L.DISCOUNT_RATE
+            FROM TBL_MEMBER M
+            JOIN TBL_LEVEL L
+           USING (LEVEL)
+        ORDER BY M.MEMBER_CODE
+    </select>
+
+    <!-- 특정 회원 조회 -->
+    <select id="searchMemberWithLevel" parameterType="com.c1z4.rentcar.member.model.dto.SearchCriteria" resultMap="memberWithLevelResultMap">
+          SELECT M.MEMBER_CODE
+                ,M.MEMBER_NAME
+                ,M.PHONE
+                ,L.LEVEL
+                ,L.DISCOUNT_RATE
+            FROM TBL_MEMBER M
+            JOIN TBL_LEVEL L
+           USING (LEVEL)
+        <where>
+            <if test="codeValue != null">
+                M.MEMBER_CODE = #{ codeValue }
+            </if>
+            <if test="nameValue != null and nameValue != ''">
+                AND M.MEMBER_NAME = #{ nameValue }
+            </if>
+            <if test="phoneValue != null and phoneValue != ''">
+                AND M.PHONE = #{ phoneValue }
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>
