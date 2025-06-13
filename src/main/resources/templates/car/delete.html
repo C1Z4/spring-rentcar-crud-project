@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>차량 삭제 확인</h2>
+
+<p>정말로 차량 코드 <span th:text="${car.carCode}"></span>번 차량을 삭제하시겠습니까?</p>
+
+<form th:action="@{'/car/delete/' + ${car.carCode}}" method="post">
+  <button type="submit">예, 삭제합니다</button>
+</form>
+<a th:href="@{/car/list}">아니오, 목록으로 돌아갑니다</a>
+</body>
+</html>

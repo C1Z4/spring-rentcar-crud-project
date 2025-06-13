@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<h3> 차량 정보 수정 </h3>
+
+<form th:action="@{/car/modify}" method="post">
+  <input type="hidden" name="carCode" th:value="${car.carCode}" />
+
+  <label for="carNumber">차량 넘버:</label>
+  <input type="text" id="carNumber" name="carNumber" th:value="${car.carNumber}" required><br><br>
+
+  <label for="rentPrice">렌트 가격:</label>
+  <input type="text" id="rentPrice" name="rentPrice" th:value="${car.rentPrice}" required><br><br>
+
+  <label for="rentLocation">렌트 장소:</label>
+  <input type="text" id="rentLocation" name="rentLocation" th:value="${car.rentLocation}" required><br><br>
+
+  <label for="rentStatus">렌트 상황:</label>
+  <input type="radio" id="rentStatus" name="rentStatus" value="true" checked>
+  <label for="rentStatus">렌트 가능</label>
+  <input type="radio" id="rentStatus1" name="rentStatus" value="false">
+  <label for="rentStatus1">렌트 불가능</label><br><br>
+
+  <label for="modelCode">차량 모델 코드:</label>
+  <input type="text" id="modelCode" name="modelCode" th:value="${car.modelCode}" required><br><br>
+
+  <button type="submit">수정</button>
+</form>
+
+<br>
+<a th:href="@{/car/list}">목록으로</a>
+
+</body>
+</html>
