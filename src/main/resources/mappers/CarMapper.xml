@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1z4.rentcar.car.CarMapper">
+
+    <resultMap id="carResultMap" type="com.c1z4.rentcar.car.CarDTO">
+        <id property="carCode" column="CAR_CODE"/>
+        <result property="carNumber" column="CAR_NUMBER"/>
+        <result property="rentPrice" column="RENT_PRICE"/>
+        <result property="rentLocation" column="RENT_LOCATION"/>
+        <result property="rentStatus" column="RENT_STATUS"/>
+        <result property="modelCode" column="MODEL_CODE"/>
+    </resultMap>
+
+
+    <select id="findAllCar" resultMap="carResultMap">
+        SELECT *
+        FROM tbl_car
+    </select>
+
+
+    <select id="findCarByCode" resultMap="carResultMap">
+        SELECT
+            CAR_CODE,
+            CAR_NUMBER,
+            RENT_PRICE,
+            RENT_LOCATION,
+            RENT_STATUS,
+            MODEL_CODE
+        FROM
+            tbl_car
+        WHERE
+            CAR_CODE = #{carCode}
+    </select>
+
+    <insert id="registCar" parameterType="com.c1z4.rentcar.car.CarDTO">
+        INSERT INTO tbl_car (
+        CAR_NUMBER,
+        RENT_PRICE,
+        RENT_LOCATION,
+        RENT_STATUS,
+        MODEL_CODE
+        ) VALUES (
+        #{carNumber},
+        #{rentPrice},
+        #{rentLocation},
+        #{rentStatus},
+        #{modelCode}
+        )
+    </insert>
+
+    <update id="modifyCar" parameterType="com.c1z4.rentcar.car.CarDTO">
+        UPDATE tbl_car
+        SET
+        CAR_NUMBER = #{carNumber},
+        RENT_PRICE = #{rentPrice},
+        RENT_LOCATION = #{rentLocation},
+        RENT_STATUS = #{rentStatus},
+        MODEL_CODE = #{modelCode}
+        WHERE
+        CAR_CODE = #{carCode}
+    </update>
+
+    <delete id="deleteCar">
+        DELETE FROM tbl_car
+        WHERE CAR_CODE = #{carCode}
+    </delete>
+
+
+</mapper>
