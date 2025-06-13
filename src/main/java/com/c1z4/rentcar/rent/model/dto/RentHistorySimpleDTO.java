@@ -2,19 +2,17 @@ package com.c1z4.rentcar.rent.model.dto;
 
 import java.time.LocalDateTime;
 
-public class RentHistoryDTO {
+public class RentHistorySimpleDTO {
     private LocalDateTime rentDate;
-    private LocalDateTime returnDate;
     private int rentTime;
     private boolean delayStatus;
-    private CarDTO carCode;
-    private MemberDTO memberCode;
+    private int carCode;
+    private int memberCode;
 
-    public RentHistoryDTO() {}
+    public RentHistorySimpleDTO() {}
 
-    public RentHistoryDTO(LocalDateTime rentDate, LocalDateTime returnDate, int rentTime, boolean delayStatus, CarDTO carCode, MemberDTO memberCode) {
+    public RentHistorySimpleDTO(LocalDateTime rentDate, int rentTime, boolean delayStatus, int carCode, int memberCode) {
         this.rentDate = rentDate;
-        this.returnDate = returnDate;
         this.rentTime = rentTime;
         this.delayStatus = delayStatus;
         this.carCode = carCode;
@@ -27,14 +25,6 @@ public class RentHistoryDTO {
 
     public void setRentDate(LocalDateTime rentDate) {
         this.rentDate = rentDate;
-    }
-
-    public LocalDateTime getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(LocalDateTime returnDate) {
-        this.returnDate = returnDate;
     }
 
     public int getRentTime() {
@@ -53,27 +43,26 @@ public class RentHistoryDTO {
         this.delayStatus = delayStatus;
     }
 
-    public CarDTO getCarCode() {
+    public int getCarCode() {
         return carCode;
     }
 
-    public void setCarCode(CarDTO carCode) {
+    public void setCarCode(int carCode) {
         this.carCode = carCode;
     }
 
-    public MemberDTO getMemberCode() {
+    public int getMemberCode() {
         return memberCode;
     }
 
-    public void setMemberCode(MemberDTO memberCode) {
+    public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
     }
 
     @Override
     public String toString() {
-        return "RentHistoryDTO{" +
+        return "RentHistorySimpleDTO{" +
                 "rentDate=" + rentDate +
-                ", returnDate=" + returnDate +
                 ", rentTime=" + rentTime +
                 ", delayStatus=" + delayStatus +
                 ", carCode=" + carCode +

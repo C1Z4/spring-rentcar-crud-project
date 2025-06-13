@@ -14,6 +14,15 @@
         <association property="memberCode" column="MEMBER_CODE" resultMap="memberResultMap"/>
     </resultMap>
 
+    <!-- RentHistorySimpleDTO을 위한 resultMap -->
+    <resultMap id="rentHistorySimpleResultMap" type="com.c1z4.rentcar.rent.model.dto.RentHistorySimpleDTO">
+        <result property="rentDate" column="RENT_DATE"/>
+        <result property="rentTime" column="RENT_TIME"/>
+        <result property="delayStatus" column="DELAY_STATUS"/>
+        <result property="carCode" column="CAR_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+    </resultMap>
+
     <!--MemberDTO를 위한 resultMap-->
     <resultMap id="memberResultMap" type="com.c1z4.rentcar.rent.model.dto.MemberDTO">
         <id property="memberCode" column="MEMBER_CODE"/>
@@ -74,7 +83,8 @@
             RENT_STATUS DESC
     </select>
 
-    <insert id="rentCar" parameterType="com.c1z4.rentcar.rent.model.dto.RentHistoryDTO">
+    <!--대여하기-->
+    <insert id="rentCar" parameterType="com.c1z4.rentcar.rent.model.dto.RentHistorySimpleDTO">
         INSERT INTO TBL_RENT
         (
             RENT_DATE,
@@ -85,14 +95,15 @@
         )
         VALUES
         (
-            SYSDATE,
-            CURRENT_TIMESTAMP,
-            'N',
-            ?,
-
+            SYSDATE(),
+            #{ rentTime },
+            false,
+            #{ memberCode },
+            #{ carCode }
         )
     </insert>
 
+    <!--반납하기-->
     <update id="returnCar" parameterType="_int">
         UPDATE TBL_RENT
         SET
@@ -101,4 +112,28 @@
             MEMBER_CODE = #{ memberCode } AND
             CAR_CODE = #{ carCode }
     </update>
+
+    <!--연체 상태에 따라 테이블 조회하기-->
+    <select id="searchDelayStatus" parameterType="boolean">
+        SELECT
+            R.RENT_DATE,
+            R.RETURN_DATE,
+            R.RENT_TIME,
+            R.DELAY_STATUS,
+            C.CAR_CODE,
+            C.CAR_NUMBER,
+            C.RENT_PRICE,
+            C.RENT_LOCATION,
+            C.RENT_STATUS ,
+            C.MODEL_CODE,
+            M.MEMBER_CODE, M.MEMBER_NAME, M.PHONE, M.LEVEL
+        FROM
+            TBL_RENT R
+        JOIN
+            TBL_CAR C ON R.CAR_CODE = C.CAR_CODE
+        JOIN
+            TBL_MEMBER M ON R.MEMBER_CODE = M.MEMBER_CODE
+        WHERE
+            R.DELAY_STATUS = #{ delayStatus }
+    </select>
 </mapper>

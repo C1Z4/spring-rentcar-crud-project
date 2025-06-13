@@ -46,6 +46,16 @@
 </head>
 <body>
 <h1>대여 이력</h1>
+<form action="rent/history" method="get">
+    <label for="delayStatus">연체 여부 : </label>
+    <select name="delayStatus" id="delayStatus">
+        <option value="전체" th:selected="${delayStatus == '전체'}">전체</option>
+        <option value="정상" th:selected="${delayStatus == '정상'}">정상</option>
+        <option value="연체" th:selected="${delayStatus == '연체'}">연체</option>
+    </select>
+    <input type="submit" value="전송">
+</form>
+
 <table>
     <tr>
         <th>대여일</th>

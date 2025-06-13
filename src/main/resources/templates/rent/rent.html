@@ -36,6 +36,9 @@
         <label>대여할 차량 번호를 입력해주세요:</label>
         <input type="number" name="carCode" placeholder="예: 1"><br><br>
 
+        <label>대여 예정 시간을 입력해주세요:</label>
+        <input type="number" name="rentTime" placeholder="예: 8"><br><br>
+
         <input type="submit" value="대여 신청">
     </form>
     <div th:replace="rent/member-and-car :: memberAndCarList"></div><br><br>

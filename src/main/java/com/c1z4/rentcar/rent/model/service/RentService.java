@@ -4,6 +4,7 @@ import com.c1z4.rentcar.rent.model.dao.RentMapper;
 import com.c1z4.rentcar.rent.model.dto.CarDTO;
 import com.c1z4.rentcar.rent.model.dto.MemberDTO;
 import com.c1z4.rentcar.rent.model.dto.RentHistoryDTO;
+import com.c1z4.rentcar.rent.model.dto.RentHistorySimpleDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,11 +30,15 @@ public class RentService {
         return rentMapper.findCarList();
     }
 
-    public void rentCar(RentHistoryDTO rentHistory) {
+    public void rentCar(RentHistorySimpleDTO rentHistory) {
         rentMapper.rentCar(rentHistory);
     }
 
     public void returnCar(int memberCode, int carCode) {
         rentMapper.returnCar(memberCode, carCode);
+    }
+
+    public List<RentHistoryDTO> searchDelayStatus(boolean delayStatus) {
+            return rentMapper.searchDelayStatus(delayStatus);
     }
 }

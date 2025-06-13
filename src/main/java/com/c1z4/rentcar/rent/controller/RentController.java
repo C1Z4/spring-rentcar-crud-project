@@ -4,6 +4,7 @@ import com.c1z4.rentcar.rent.model.dao.RentMapper;
 import com.c1z4.rentcar.rent.model.dto.CarDTO;
 import com.c1z4.rentcar.rent.model.dto.MemberDTO;
 import com.c1z4.rentcar.rent.model.dto.RentHistoryDTO;
+import com.c1z4.rentcar.rent.model.dto.RentHistorySimpleDTO;
 import com.c1z4.rentcar.rent.model.service.RentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,15 +49,13 @@ public class RentController {
 
     // 대여하기
     @PostMapping("/rent")
-    public String rentCar(@RequestParam int memberCode,
-                          @RequestParam int carCode,
+    public String rentCar(@ModelAttribute RentHistorySimpleDTO rentHistorySimple,
                           RedirectAttributes rttr) {
-
-
+        rentService.rentCar(rentHistorySimple);
         rttr.addFlashAttribute("successMessage", "차량 대여 성공!");
         rttr.addFlashAttribute("failMessage", "차량 대여 실패\n대여가 가능한 차량 번호를 입력해주세요.");
 
-        return "redirect:rent/history";
+        return "redirect:/rent/history";
     }
 
     // 반납하기
@@ -64,10 +63,8 @@ public class RentController {
     public String returnCar(@RequestParam int memberCode,
                             @RequestParam int carCode,
                             RedirectAttributes rttr) {
-
         rentService.returnCar(memberCode, carCode);
         rttr.addFlashAttribute("successMessage", "반납 완료!");
         return "redirect:/rent/history";
     }
-
 }
