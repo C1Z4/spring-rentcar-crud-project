@@ -3,6 +3,7 @@ package com.c1z4.rentcar.rent.model.dto;
 import java.time.LocalDateTime;
 
 public class RentHistoryDTO {
+
     private LocalDateTime rentDate;
     private LocalDateTime returnDate;
     private int rentTime;

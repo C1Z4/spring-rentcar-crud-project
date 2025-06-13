@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2> 차량 목록 </h2>
+
+    <table border="1">
+    <tr>
+        <th>차량 코드</th>
+        <th>차량 넘버</th>
+        <th>렌트 가격</th>
+        <th>렌트 장소</th>
+        <th>렌트 가능 여부</th>
+        <th>차량 모델</th>
+        <th>차량 관리</th>
+    </tr>
+    <tr th:each="car : ${carList}">
+        <td th:text="${car.carCode}"></td>
+        <td th:text="${car.carNumber}"></td>
+        <td th:text="${car.rentPrice}"></td>
+        <td th:text="${car.rentLocation}"></td>
+        <td th:text="${car.rentStatus} ? '가능' : '불가능'"></td>
+        <td th:text="${car.modelCode}"></td>
+
+        <td>
+            <a th:href="@{'/car/select/' + ${car.carCode}}">상세 보기</a> |
+            <a th:href="@{'/car/modify/' + ${car.carCode}}">수정</a> |
+            <a th:href="@{'/car/delete-confirm/' + ${car.carCode}}">삭제</a>
+        </td>
+
+    </tr>
+    </table>
+
+</body>
+</html>

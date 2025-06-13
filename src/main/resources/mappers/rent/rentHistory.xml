@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c1z4.rentcar.rent.model.dao.RentHistoryDAO">
+
+    <resultMap id="RentHistoryResultMap" type="com.c1z4.rentcar.rent.model.dto.RentHistoryDTO">
+        <result property="rentDate" column="RENT_DATE"/>
+        <result property="returnDate" column="RETURN_DATE"/>
+        <result property="rentTime" column="RENT_TIME"/>
+        <result property="delayStatus" column="DELAY_STATUS"/>
+
+        <association property="carCode" javaType="com.c1z4.rentcar.rent.model.dto.CarDTO">
+            <id property="carCode" column="CAR_CODE"/>
+            <result property="carNum" column="CAR_NUMBER"/>
+            <result property="carPrice" column="RENT_PRICE"/>
+            <result property="rentLocation" column="RENT_LOCATION"/>
+            <result property="rentStatus" column="RENT_STATUS"/>
+            <result property="modelCode" column="MODEL_CODE"/>
+        </association>
+
+        <association property="memberCode" javaType="com.c1z4.rentcar.rent.model.dto.MemberDTO">
+            <id property="memberCode" column="MEMBER_CODE"/>
+            <result property="memberName" column="MEMBER_NAME"/>
+            <result property="phone" column="PHONE"/>
+            <result property="level" column="LEVEL"/>
+        </association>
+    </resultMap>
+
+    <select id="findRentHistoryByMember" resultMap="RentHistoryResultMap">
+        SELECT
+            R.RENT_DATE, R.RETURN_DATE, R.RENT_TIME, R.DELAY_STATUS,
+            C.CAR_CODE, C.CAR_NUMBER, C.RENT_PRICE, C.RENT_LOCATION, C.RENT_STATUS, C.MODEL_CODE,
+            M.MEMBER_CODE, M.MEMBER_NAME, M.PHONE, M.LEVEL
+        FROM TBL_RENT R
+        JOIN TBL_CAR C ON R.CAR_CODE = C.CAR_CODE
+        JOIN TBL_MEMBER M ON R.MEMBER_CODE = M.MEMBER_CODE
+        WHERE M.MEMBER_NAME = #{memberName}
+    </select>
+
+    <select id="findRentHistoryByCar" resultMap="RentHistoryResultMap">
+        SELECT
+            R.RENT_DATE, R.RETURN_DATE, R.RENT_TIME, R.DELAY_STATUS,
+            C.CAR_CODE, C.CAR_NUMBER, C.RENT_PRICE, C.RENT_LOCATION, C.RENT_STATUS, C.MODEL_CODE,
+            M.MEMBER_CODE, M.MEMBER_NAME, M.PHONE, M.LEVEL
+        FROM TBL_RENT R
+                 JOIN TBL_CAR C ON R.CAR_CODE = C.CAR_CODE
+                 JOIN TBL_MEMBER M ON R.MEMBER_CODE = M.MEMBER_CODE
+        WHERE C.CAR_CODE = #{carCode}
+    </select>
+
+</mapper>
