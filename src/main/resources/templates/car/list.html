@@ -14,15 +14,16 @@
         <th>차량 넘버</th>
         <th>렌트 가격</th>
         <th>렌트 장소</th>
-        <th>렌트 상황</th>
+        <th>렌트 가능 여부</th>
         <th>차량 모델</th>
+        <th>차량 관리</th>
     </tr>
     <tr th:each="car : ${carList}">
         <td th:text="${car.carCode}"></td>
         <td th:text="${car.carNumber}"></td>
         <td th:text="${car.rentPrice}"></td>
         <td th:text="${car.rentLocation}"></td>
-        <td th:text="${car.rentStatus}"></td>
+        <td th:text="${car.rentStatus} ? '가능' : '불가능'"></td>
         <td th:text="${car.modelCode}"></td>
 
         <td>
