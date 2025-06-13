@@ -34,9 +34,9 @@
 <body>
 <h2>🚘회원별 대여 이력🚘</h2>
 <table>
-  <tr><th>대여일</th><th>반납일</th><th>차량번호</th><th>연체</th></tr>
+  <tr><th>회원명</th><th>대여일</th><th>반납일</th><th>차량번호</th><th>연체</th></tr>
   <tr th:each="history : ${historyList}">
-    <td th:text="${history.me}"
+    <td th:text="${history.memberCode.memberName}"></td>
     <td th:text="${history.rentDate}"></td>
     <td th:text="${history.returnDate}"></td>
     <td th:text="${history.carCode.carNum}"></td>

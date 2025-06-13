@@ -10,16 +10,19 @@ public class RentHistoryDTO {
     private boolean delayStatus;
     private CarDTO carCode;
     private MemberDTO memberCode;
+    private MemberDTO memberName;
 
-    public RentHistoryDTO() {}
+    public RentHistoryDTO() {
+    }
 
-    public RentHistoryDTO(LocalDateTime rentDate, LocalDateTime returnDate, int rentTime, boolean delayStatus, CarDTO carCode, MemberDTO memberCode) {
+    public RentHistoryDTO(LocalDateTime rentDate, LocalDateTime returnDate, int rentTime, boolean delayStatus, CarDTO carCode, MemberDTO memberCode, MemberDTO memberName) {
         this.rentDate = rentDate;
         this.returnDate = returnDate;
         this.rentTime = rentTime;
         this.delayStatus = delayStatus;
         this.carCode = carCode;
         this.memberCode = memberCode;
+        this.memberName = memberName;
     }
 
     public LocalDateTime getRentDate() {
@@ -70,6 +73,14 @@ public class RentHistoryDTO {
         this.memberCode = memberCode;
     }
 
+    public MemberDTO getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(MemberDTO memberName) {
+        this.memberName = memberName;
+    }
+
     @Override
     public String toString() {
         return "RentHistoryDTO{" +
@@ -79,6 +90,7 @@ public class RentHistoryDTO {
                 ", delayStatus=" + delayStatus +
                 ", carCode=" + carCode +
                 ", memberCode=" + memberCode +
+                ", memberName=" + memberName +
                 '}';
     }
 }
