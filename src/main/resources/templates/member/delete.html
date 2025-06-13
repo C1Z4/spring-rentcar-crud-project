@@ -2,37 +2,52 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/layout :: head"></head>
 <body>
-    <div class="main-container">
-        <th:block th:insert="common/layout :: header"></th:block>
+<div class="main-container">
+    <th:block th:insert="common/layout :: header"></th:block>
 
-        <main class="page-content">
-            <table align="center" border="1">
-                <tr>
-                    <th>회원번호</th>
-                    <th>이름</th>
-                    <th>연락처</th>
-                    <th>등급</th>
-                    <th>할인율</th>
-                    <th></th>
-                </tr>
-                <tr th:each="member : ${ memberList }">
-                    <td th:text="${ member.memberCode }"></td>
-                    <td th:text="${ member.memberName }"></td>
-                    <td th:text="${ member.phone }"></td>
-                    <td th:text="${ member.level.level }"></td>
-                    <td th:text="${ member.level.discountRate }"></td>
-                    <td>
-                        <form method="POST" action="/member/delete" style="display: inline;">
-                            <input type="hidden" name="memberCode" th:value="${member.memberCode}">
-                            <button type="submit" class="delete-Button" 
-                                    onclick="return confirm('정말로 이 회원을 삭제하시겠습니까?')">삭제</button>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </main>
-            <th:block th:insert="common/layout :: footer"></th:block>
-    </div>
+    <main class="page-content">
+        <table align="center" border="1">
+            <tr>
+                <th>회원번호</th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>등급</th>
+                <th>할인율</th>
+                <th></th>
+            </tr>
+            <tr th:each="member : ${ memberList }">
+                <td th:text="${ member.memberCode }"></td>
+                <td th:text="${ member.memberName }"></td>
+                <td th:text="${ member.phone }"></td>
+                <td th:text="${ member.level.level }"></td>
+                <td th:text="${ member.level.discountRate }"></td>
+                <td>
+                    <form method="POST" action="/member/delete" style="display: inline;">
+                        <input type="hidden" name="memberCode" th:value="${member.memberCode}">
+                        <button type="submit" class="delete-Button"
+                                onclick="return confirm('정말로 이 회원을 삭제하시겠습니까?')">삭제</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </main>
+    <th:block th:insert="common/layout :: footer"></th:block>
+</div>
+
 
 </body>
 </html>
+<style>
+    .delete-Button {
+        padding: 3px 6px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 500;
+        background-color: #ff6868;
+        color: white;
+    }
+</style>
