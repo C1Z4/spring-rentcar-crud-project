@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
+<body>
+<div class="main-container">
+    <th:block th:insert="common/layout :: header"></th:block>
+
+    <main class="page-content" style="flex-direction: column">
+        <h3>좋아요 목록 조회</h3>
+        <br>
+        <!-- 회원 코드 입력 -->
+        <form action="/like/member/list" method="get">
+            회원 코드 입력: <input type="number" name="memberCode" required>
+            <input type="submit" value="조회">
+        </form>
+        <input type="hidden" id="hiddenMemberCode" th:value="${memberCode}">
+
+        <!-- 차량 목록 -->
+        <div th:if="${cars != null}">
+            <br>
+
+            <span th:text="${memberCode}" />번 회원의 좋아요 리스트 <hr>
+            <table>
+                <tr th:each="i : ${#numbers.sequence(0, cars.size() / 3)}">
+                    <td th:each="car, index : ${cars.subList(i * 3, (i + 1) * 3 > cars.size() ? cars.size() : (i + 1) * 3)}">
+                        <div>
+                            <span th:text="${car.carNumber}" /> |
+                            <span th:text="${car.rentPrice}" />원
+                            <button th:id="'btn-'+${car.carCode}"
+                                    th:text="${car.liked} ? '❤️' : '🤍'"
+                                    th:data-liked="${car.liked}"
+                                    th:data-car="${car.carCode}"
+                                    onclick="toggleLike(this)" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <script>
+            function toggleLike(button) {
+                const carCode = button.dataset.car;
+                const liked = button.dataset.liked === "true";
+                const memberCode = document.getElementById("hiddenMemberCode").value;
+
+                fetch('/like/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `memberCode=${memberCode}&carCode=${carCode}&liked=${liked}`
+                })
+
+                    // 서버 응답을 json 으로 변환
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result === "success") {
+
+                            // liked값과 이모지 토글
+                            button.dataset.liked = (!liked).toString();
+                            button.textContent = liked ? '🤍' : '❤️';
+                        }
+                    })
+
+                    // 에러 핸들링
+                    .catch(error => {
+                        console.error('에러 발생:', error);
+                        alert("요청 처리 중 오류가 발생했습니다.");
+                    });
+            }
+        </script>
+    </main>
+
+    <th:block th:insert="common/layout :: footer"></th:block>
+</div>
+</body>
+</html>
