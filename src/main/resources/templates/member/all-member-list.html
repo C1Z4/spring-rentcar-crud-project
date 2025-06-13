@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
+<body>
+    <div class="main-container">
+        <th:block th:insert="common/layout :: header"></th:block>
+
+        <main class="page-content">
+
+            <th:block th:fragment="memberTable">
+                <table align="center" border="1">
+                    <tr>
+                        <th>회원번호</th>
+                        <th>이름</th>
+                        <th>연락처</th>
+                        <th>등급</th>
+                        <th>할인율</th>
+                    </tr>
+                    <tr th:each="member : ${ memberList }">
+                        <td th:text="${ member.memberCode }"></td>
+                        <td th:text="${ member.memberName }"></td>
+                        <td th:text="${ member.phone }"></td>
+                        <td th:text="${ member.level.level }"></td>
+                        <td th:text="${ member.level.discountRate }"></td>
+                    </tr>
+                </table>
+            </th:block>
+
+            <th:block th:if="${#lists.isEmpty(memberList)}">
+                <p>아직 아무 회원도 없습니다.</p>
+            </th:block>
+        </main>
+
+        <th:block th:insert="common/layout :: footer"></th:block>
+    </div>
+</body>
+</html>

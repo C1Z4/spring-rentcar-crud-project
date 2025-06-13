@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/layout :: head"></head>
+<body>
+    <div class="main-container">
+        <th:block th:insert="common/layout :: header"></th:block>
+
+        <main class="page-content">
+
+            <form action="/member/search" method="post">
+                <label>회원번호</label>
+                <input type="text" placeholder="1" name="codeValue"/><br>
+                <label>회원이름</label>
+                <input type="text" placeholder="김철수" name="nameValue"/><br>
+                <label>연락처</label>
+                <input type="text" placeholder="010-1234-5678" name="phoneValue"/><br>
+                <button class="btn" type="submit">검색</button>
+            </form>
+
+            <th:block th:if="${memberList != null and not #lists.isEmpty(memberList)}">
+                <th:block th:insert="member/all-member-list :: memberTable"></th:block>
+            </th:block>
+
+            <th:block th:if="${memberList != null and #lists.isEmpty(memberList)}">
+                <p>검색 결과가 없습니다.</p>
+            </th:block>
+
+        </main>
+
+        <th:block th:insert="common/layout :: footer"></th:block>
+    </div>
+</body>
+</html>
