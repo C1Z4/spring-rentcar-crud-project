@@ -35,7 +35,7 @@ public class RentController {
     }
 
     // 회원 목록 및 차량 조회
-    @GetMapping("/rent")
+    @GetMapping("/rent-and-return")
     public String findMemberAndCarList(Model model) {
 
         List<MemberDTO> memberList = rentService.findMemberList();
@@ -48,7 +48,7 @@ public class RentController {
     }
 
     // 대여하기
-    @PostMapping("/rent")
+    @PostMapping("/rent-and-return")
     public String rentCar(@ModelAttribute RentHistorySimpleDTO rentHistorySimple,
                           RedirectAttributes rttr) {
         rentService.rentCar(rentHistorySimple);

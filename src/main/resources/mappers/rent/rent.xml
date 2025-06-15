@@ -60,6 +60,8 @@
             TBL_CAR C ON R.CAR_CODE = C.CAR_CODE
         JOIN
             TBL_MEMBER M ON R.MEMBER_CODE = M.MEMBER_CODE
+        ORDER BY
+          M.MEMBER_NAME, R.RETURN_DATE, R.RENT_DATE
     </select>
 
     <!--회원 전체 조회-->

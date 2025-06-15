@@ -23,8 +23,13 @@
                 <th>반납일</th>
                 <th>대여 예정 시간</th>
                 <th>연체 여부</th>
-                <th>차량 정보</th>
-                <th>회원 정보</th>
+                <th>차량 번호</th>
+                <th>대여 가격</th>
+                <th>대여 위치</th>
+                <th>대여 가능 여부</th>
+                <th>회원 이름</th>
+                <th>회원 전화번호</th>
+                <th>회원 등급</th>
                 <th>반납</th>
             </tr>
             <tr th:each="rentHistory : ${rentHistoryList}">
@@ -32,26 +37,24 @@
                 <td th:text="${rentHistory.returnDate}"></td>
                 <td th:text="${rentHistory.rentTime} + '시간'"></td>
                 <td th:text="${rentHistory.delayStatus ? '연체' : '정상'}"></td>
-                <td>
-                <span>차량 코드 : <span th:text="${rentHistory.carCode.carCode}"></span></span><br>
-                <span>차량 번호 : <span th:text="${rentHistory.carCode.carNum}"></span></span><br>
-                <span>대여 가격 : <span th:text="${rentHistory.carCode.carPrice} + '원'"></span></span><br>
-                <span>대여 위치 : <span th:text="${rentHistory.carCode.rentLocation}"></span></span><br>
-                <span>대여 가능 여부 : <span th:text="${rentHistory.carCode.rentStatus ? '가능' : '불가능'}"></span></span><br>
-                <span>세부 차량 코드 : <span th:text="${rentHistory.carCode.modelCode}"></span></span><br>
-            </td>
-                <td>
-                    <span>회원 코드 : <span th:text="${rentHistory.memberCode.memberCode}"></span></span><br>
-                    <span>회원 이름 : <span th:text="${rentHistory.memberCode.memberName}"></span></span><br>
-                    <span>전화번호 : <span th:text="${rentHistory.memberCode.phone}"></span></span><br>
-                    <span>회원 등급 : <span th:text="${rentHistory.memberCode.level}"></span></span><br>
-                </td>
+                <td th:text="${rentHistory.carCode.carNum}"></td>
+                <td th:text="${rentHistory.carCode.carPrice} + '원'"></td>
+                <td th:text="${rentHistory.carCode.rentLocation}"></td>
+                <td th:text="${rentHistory.carCode.rentStatus ? '가능' : '불가능'}"></td>
+                <td th:text="${rentHistory.memberCode.memberName}"></td>
+                <td th:text="${rentHistory.memberCode.phone}"></td>
+                <td th:text="${rentHistory.memberCode.level}"></td>
                 <td>
                     <form th:action="@{/rent/return}" method="post">
                         <input type="hidden" th:name="memberCode" th:value="${rentHistory.memberCode.memberCode}" />
                         <input type="hidden" th:name="carCode" th:value="${rentHistory.carCode.carCode}" />
-                        <button type="submit" th:disabled="${rentHistory.returnDate}" class="btn" style="min-width: 70px; font-size: 0.8em; white-space: nowrap">반납하기</button>
-                    </form>
+                        <button type="submit"
+                                th:disabled="${rentHistory.returnDate}"
+                                class="btn"
+                                th:classappend="${rentHistory.returnDate} ? ' disabled-btn' : ''"
+                                style="min-width: 70px; font-size: 0.8em; white-space: nowrap">
+                            반납하기
+                        </button>                    </form>
                 </td>
 
             </tr>
@@ -91,4 +94,12 @@
         white-space: pre-wrap;
         word-wrap: break-word;
     }
+
+    .disabled-btn {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+        border: 1px solid #999;
+    }
+
 </style>
