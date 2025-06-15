@@ -25,11 +25,19 @@ public class RentController {
 
     // 대여 이력 조회
     @GetMapping("/history")
-    public String findRentHistory (Model model) {
+    public String findRentHistory (@RequestParam(value = "delayStatus", defaultValue = "전체") String delayStatus, Model model) {
+        List<RentHistoryDTO> rentHistoryList = null;
 
-        List<RentHistoryDTO> rentHistoryList = rentService.findRentHistory();
+        if (delayStatus.equals("전체")) {
+            rentHistoryList = rentService.findRentHistory();
+        } else if(delayStatus.equals("정상")) {
+            rentHistoryList = rentService.searchDelayStatus(false);
+        } else if(delayStatus.equals("연체")) {
+            rentHistoryList = rentService.searchDelayStatus(true);
+        }
 
         model.addAttribute("rentHistoryList", rentHistoryList);
+        model.addAttribute("delayStatus", delayStatus);
 
         return "rent/history";
     }
@@ -52,6 +60,7 @@ public class RentController {
     public String rentCar(@ModelAttribute RentHistorySimpleDTO rentHistorySimple,
                           RedirectAttributes rttr) {
         rentService.rentCar(rentHistorySimple);
+
         rttr.addFlashAttribute("successMessage", "차량 대여 성공!");
         rttr.addFlashAttribute("failMessage", "차량 대여 실패\n대여가 가능한 차량 번호를 입력해주세요.");
 
@@ -64,7 +73,9 @@ public class RentController {
                             @RequestParam int carCode,
                             RedirectAttributes rttr) {
         rentService.returnCar(memberCode, carCode);
+
         rttr.addFlashAttribute("successMessage", "반납 완료!");
+
         return "redirect:/rent/history";
     }
 }

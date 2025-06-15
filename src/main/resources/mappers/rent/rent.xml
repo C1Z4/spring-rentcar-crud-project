@@ -76,6 +76,7 @@
     </select>
 
     <!--차량 전체 조회-->
+    <!--차량 전체 조회-->
     <select id="findCarList" resultMap="carResultMap">
         SELECT
             *
@@ -116,7 +117,7 @@
     </update>
 
     <!--연체 상태에 따라 테이블 조회하기-->
-    <select id="searchDelayStatus" parameterType="boolean">
+    <select id="searchDelayStatus" parameterType="boolean" resultMap="rentHistoryResultMap">
         SELECT
             R.RENT_DATE,
             R.RETURN_DATE,
@@ -137,5 +138,7 @@
             TBL_MEMBER M ON R.MEMBER_CODE = M.MEMBER_CODE
         WHERE
             R.DELAY_STATUS = #{ delayStatus }
+        ORDER BY
+            M.MEMBER_NAME, R.RETURN_DATE, R.RENT_DATE
     </select>
 </mapper>

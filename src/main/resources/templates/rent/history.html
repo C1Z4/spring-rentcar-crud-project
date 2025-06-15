@@ -7,14 +7,13 @@
 
     <main class="page-content" style="flex-direction: column">
         <h1>대여 이력</h1>
-        <form action="rent/history" method="get">
+        <form action="/rent/history" method="get">
             <label for="delayStatus">연체 여부 : </label>
-            <select name="delayStatus" id="delayStatus">
-                <option value="전체" th:selected="${delayStatus == '전체'}">전체</option>
-                <option value="정상" th:selected="${delayStatus == '정상'}">정상</option>
-                <option value="연체" th:selected="${delayStatus == '연체'}">연체</option>
+            <select name="delayStatus" id="delayStatus" onchange="this.form.submit()">
+                <option value="전체" th:selected="${delayStatus eq '전체'}">전체</option>
+                <option value="정상" th:selected="${delayStatus eq '정상'}">정상</option>
+                <option value="연체" th:selected="${delayStatus eq '연체'}">연체</option>
             </select>
-            <input type="submit" value="전송">
         </form>
 
         <table>
@@ -49,20 +48,28 @@
                         <input type="hidden" th:name="memberCode" th:value="${rentHistory.memberCode.memberCode}" />
                         <input type="hidden" th:name="carCode" th:value="${rentHistory.carCode.carCode}" />
                         <button type="submit"
+                                th:text="${rentHistory.returnDate} ? '반납완료' : '반납하기'"
                                 th:disabled="${rentHistory.returnDate}"
                                 class="btn"
-                                th:classappend="${rentHistory.returnDate} ? ' disabled-btn' : ''"
+                                th:classappend="${rentHistory.returnDate} ? 'disabled-btn' : ''"
                                 style="min-width: 70px; font-size: 0.8em; white-space: nowrap">
-                            반납하기
-                        </button>                    </form>
+                        </button>
+                    </form>
                 </td>
 
             </tr>
         </table>
     </main>
-
     <th:block th:insert="common/layout :: footer"></th:block>
 </div>
+<script th:inline="javascript">
+    const successMessage = '[[${ successMessage }]]'
+    const failMessage = '[[${ failMessage }]]'
+
+    if (successMessage && successMessage !== 'null') {
+        alert(successMessage)
+    }
+</script>
 </body>
 </html>
 
